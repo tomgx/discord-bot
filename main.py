@@ -2,7 +2,6 @@ import discord
 from bs4 import BeautifulSoup
 import requests
 import urllib.request, json
-import time
 
 intents = discord.Intents.default()
 
@@ -76,24 +75,27 @@ class Bot(discord.Client):
         deleteAmount = message.content.lstrip("!delete ")
         try:
             if message.content == prefix + "delete " + deleteAmount:
-                amount = int(deleteAmount)
-                if amount > 100:
-                    await message.channel.send("`Failed to delete: Maximum 100`")
-                    print("failed to delete", amount, "messages")
-                elif amount < 1:
-                    await message.channel.send(
-                        "`Failed to delete: number must be greater than 0`"
-                    )
+                if not message.author.top_role.permissions.manage_messages:
+                    await message.channel.send("`You don't have permission`")
                 else:
-                    await message.channel.purge(limit=amount)
-                    print("deleted", amount, "messages")
-                    # time.sleep(1)
-                    embedVar = discord.Embed(
-                        title="deleted",
-                        description=deleteAmount + " messages",
-                        color=0xC200D8,
-                    )
-                    await message.channel.send(embed=embedVar)
+                    amount = int(deleteAmount)
+                    if amount > 100:
+                        await message.channel.send("`Failed to delete: Maximum 100`")
+                        print("failed to delete", amount, "messages")
+                    elif amount < 1:
+                        await message.channel.send(
+                            "`Failed to delete: number must be greater than 0`"
+                        )
+                    else:
+                        await message.channel.purge(limit=amount)
+                        print("deleted", amount, "messages")
+                        # time.sleep(1)
+                        embedVar = discord.Embed(
+                            title="deleted",
+                            description=deleteAmount + " messages",
+                            color=0xC200D8,
+                        )
+                        await message.channel.send(embed=embedVar)
         except:
             print("error")
             await message.channel.send("`!delete [Must be an integer]`")
