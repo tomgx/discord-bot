@@ -6,4 +6,4 @@
 
 !r subreddit_name<br/>(grabs images from subreddit of choice)
 
-!delete AMOUNT<br/>(delete messages in a discord channel)
+!delete AMOUNT<br/>(delete messages in a discord channel) - requires manage message permissions
