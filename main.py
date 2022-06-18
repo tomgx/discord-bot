@@ -2,6 +2,7 @@ import discord
 from bs4 import BeautifulSoup
 import requests
 import urllib.request, json
+import os
 
 intents = discord.Intents.default()
 
@@ -100,7 +101,6 @@ class Bot(discord.Client):
             print("error")
             await message.channel.send("`!delete [Must be an integer]`")
 
-
+TOKEN = os.getenv("BOT_TOKEN")
 client = Bot(intents=intents)
-token = "your bot token"
-client.run(token)
+client.run(TOKEN)
