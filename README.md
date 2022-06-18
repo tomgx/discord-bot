@@ -1,9 +1,9 @@
-# reddit image grabbing discord bot
+# simple discord bot
 
-very inconsistent, but works by grabbing the image tag on your subreddit of choice.
+## commands
 
-## command
+!cat<br/>(posts random cat picture)
 
-!cat
-!r subreddit_name
-!delete AMOUNT
+!r subreddit_name<br/>(grabs images from subreddit of choice)
+
+!delete AMOUNT<br/>(delete messages in a discord channel)
