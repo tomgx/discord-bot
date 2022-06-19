@@ -1,15 +1,17 @@
 import discord
 from bs4 import BeautifulSoup
+from discord.ext import tasks
 import requests
 import urllib.request, json
 import os
-
-intents = discord.Intents.default()
+import datetime
+import asyncio
 
 
 class Bot(discord.Client):
     async def on_ready(self):
         print("Successfully deployed:", self.user)
+        dailyLoop.start()
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -30,7 +32,7 @@ class Bot(discord.Client):
             )
             embedVar.add_field(
                 name="Delete Messages",
-                value="!delete AMOUNT",
+                value="!delete amount",
                 inline=False,
             )
             await message.channel.send(embed=embedVar)
@@ -108,6 +110,28 @@ class Bot(discord.Client):
             await message.channel.send("`%s`" % err)
 
 
+# sends daily cat pic
+@tasks.loop()
+async def dailyLoop():
+    channel = client.get_channel(398928792334368770)
+    current_time = datetime.datetime.now().strftime("%H:%M")
+    day_week = datetime.datetime.now().weekday()
+    if day_week == 0:
+        print(current_time)
+        if current_time == "08:00":
+            with urllib.request.urlopen("https://cataas.com/cat?json=true") as url:
+                data = json.loads(url.read().decode())
+                catUrl = data["url"]
+                catImage = "https://cataas.com/" + catUrl
+                embedVar = discord.Embed(title="Weekly Cat Pic", color=0xC200D8)
+                embedVar.set_image(url=catImage)
+                await channel.send(embed=embedVar)
+                print("Weekly Pic Sent")
+                await asyncio.sleep(60)
+                return
+
+
 TOKEN = os.getenv("BOT_TOKEN")
+intents = discord.Intents.default()
 client = Bot(intents=intents)
 client.run(TOKEN)
