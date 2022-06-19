@@ -110,14 +110,16 @@ class Bot(discord.Client):
             await message.channel.send("`%s`" % err)
 
 
-# sends daily cat pic
+# sends weekly cat pic
 @tasks.loop()
 async def dailyLoop():
     channel = client.get_channel(398928792334368770)
     current_time = datetime.datetime.now().strftime("%H:%M")
     day_week = datetime.datetime.now().weekday()
+    # if monday
     if day_week == 0:
         print(current_time)
+        # if 8am
         if current_time == "08:00":
             with urllib.request.urlopen("https://cataas.com/cat?json=true") as url:
                 data = json.loads(url.read().decode())
@@ -127,6 +129,7 @@ async def dailyLoop():
                 embedVar.set_image(url=catImage)
                 await channel.send(embed=embedVar)
                 print("Weekly Pic Sent")
+                # wait 60 seconds after first run through
                 await asyncio.sleep(60)
                 return
 
