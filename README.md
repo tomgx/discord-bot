@@ -1,5 +1,5 @@
 # simple discord bot
--->[**Invite Link**](https://discord.com/api/oauth2/authorize?client_id=433644248848662528&permissions=26624&scope=bot)<--
+-->[**Invite Link**](https://discord.com/api/oauth2/authorize?client_id=433644248848662528&permissions=92160&scope=bot)<--
 ## commands
 
 !cat<br/>(posts random cat picture)
