@@ -119,8 +119,8 @@ async def dailyLoop():
     # if monday
     if day_week == 0:
         print(current_time)
-        # if 8am
-        if current_time == "08:00":
+        # if 7am UTC
+        if current_time == "07:00":
             with urllib.request.urlopen("https://cataas.com/cat?json=true") as url:
                 data = json.loads(url.read().decode())
                 catUrl = data["url"]
