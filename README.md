@@ -1,7 +1,7 @@
 # simple discord bot
 
 ## commands
-weekly cat pic sent at Monday 08:00
+weekly cat pic sent at Monday 07:00 UTC
 
 !cat<br/>(posts random cat picture)
 
