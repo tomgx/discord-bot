@@ -4,8 +4,6 @@ import requests
 import urllib.request, json
 import os
 
-intents = discord.Intents.default()
-
 
 class Bot(discord.Client):
     async def on_ready(self):
@@ -109,5 +107,6 @@ class Bot(discord.Client):
 
 
 TOKEN = os.getenv("BOT_TOKEN")
+intents = discord.Intents.default()
 client = Bot(intents=intents)
 client.run(TOKEN)
